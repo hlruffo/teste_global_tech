@@ -1,0 +1,71 @@
+# ========================
+# Python / Django (backend)
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+
+# uv
+.python-version
+
+# Environment variables (credentials)
+.env
+
+# Django
+*.log
+*.pot
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Migrations geradas localmente (manter as committed)
+# pessoas/migrations/ — NÃO ignorar, migrations são versionadas
+
+# ========================
+# Angular / Node (frontend)
+# ========================
+node_modules/
+dist/
+tmp/
+.angular/
+.sass-cache/
+
+# Logs
+npm-debug.log
+yarn-error.log
+
+# Coverage
+coverage/
+htmlcov/
+
+# ========================
+# Linting / Formatting
+# ========================
+.ruff_cache/
+.mypy_cache/
+
+# ========================
+# IDEs
+# ========================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ========================
+# OS
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
