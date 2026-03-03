@@ -1,0 +1,19 @@
+<div class="search-row">
+  <input
+    type="text"
+    [formControl]="searchQuery"
+    placeholder="Pesquisar por Nome ou CPF"
+    (keyup.enter)="onPesquisar()"
+  />
+  <button (click)="onPesquisar()" [disabled]="isLoading">Pesquisar</button>
+</div>
+
+<ul class="search-results" *ngIf="resultados.length > 1">
+  <li
+    *ngFor="let p of resultados"
+    (click)="onSelecionar(p)"
+    class="result-item"
+  >
+    {{ p.nome }} — CPF: {{ p.cpf }}
+  </li>
+</ul>

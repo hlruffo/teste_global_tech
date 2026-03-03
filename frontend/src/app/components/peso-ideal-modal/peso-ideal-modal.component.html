@@ -1,0 +1,13 @@
+<div class="modal-overlay" *ngIf="visivel" (click)="onOverlayClick()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>Resultado — Peso Ideal</h3>
+    <table>
+      <tr><td>Nome</td><td>{{ resultado?.nome }}</td></tr>
+      <tr><td>Sexo</td><td>{{ resultado?.sexo === 'M' ? 'Masculino' : 'Feminino' }}</td></tr>
+      <tr><td>Altura</td><td>{{ resultado?.altura }} m</td></tr>
+      <tr><td>Peso Atual</td><td>{{ resultado?.peso_atual }} kg</td></tr>
+      <tr class="highlight"><td>Peso Ideal</td><td>{{ resultado?.peso_ideal }} kg</td></tr>
+    </table>
+    <button class="btn primary" (click)="onFechar()">Fechar</button>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Cadastro de Pessoas</h2>
+
+  <!-- Mensagens globais -->
+  <div class="alert success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <!-- Pesquisa -->
+  <app-pessoa-search
+    [isLoading]="isLoading"
+    [resultados]="resultadosBusca"
+    (pesquisar)="onPesquisar($event)"
+    (selecionar)="onSelecionar($event)"
+  ></app-pessoa-search>
+
+  <!-- Formulário + Botões -->
+  <app-pessoa-form
+    [pessoaSelecionada]="pessoaSelecionada"
+    [isLoading]="isLoading"
+    (incluir)="onIncluir($event)"
+    (alterar)="onAlterar($event)"
+    (excluir)="onExcluir($event)"
+    (calcularPesoIdeal)="onCalcularPesoIdeal($event)"
+  ></app-pessoa-form>
+
+  <!-- Modal -->
+  <app-peso-ideal-modal
+    [resultado]="pesoIdealResult"
+    [visivel]="showPesoIdealModal"
+    (fechar)="onFecharModal()"
+  ></app-peso-ideal-modal>
+</div>
