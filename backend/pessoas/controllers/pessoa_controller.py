@@ -1,10 +1,8 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
+from rest_framework import status                                                                                                                                                                                                                                                                  
+from rest_framework.response import Response                                                                                                                                                                                                                                                         from rest_framework.views import APIView
+                                                                                                                                                                                                                                                                                                    
 from ..serializers import PessoaSerializer
 from ..services import PessoaService
-from ..tasks import PessoaTask
 
 
 class PessoaListCreateView(APIView):
@@ -15,9 +13,10 @@ class PessoaListCreateView(APIView):
     """
 
     def get(self, request):
-        query = request.query_params.get('q', '').strip()
-        pessoas = PessoaService.pesquisar(
-            query) if query else PessoaTask.listar_todos()
+        query = request.query_params.get("q", "").strip()
+        pessoas = (
+            PessoaService.pesquisar(query) if query else PessoaService.listar_todos()
+        )
         serializer = PessoaSerializer(pessoas, many=True)
         return Response(serializer.data)
 
@@ -40,17 +39,11 @@ class PessoaDetailView(APIView):
     """
 
     def get(self, request, pk):
-        from ..exceptions import PessoaNaoEncontradaError
-
-        pessoa = PessoaTask.buscar_por_id(pk)
-        if not pessoa:
-            raise PessoaNaoEncontradaError(
-                f'Pessoa com id={pk} não encontrada.')
+        pessoa = PessoaService.buscar_pessoa(pk)
         return Response(PessoaSerializer(pessoa).data)
 
     def put(self, request, pk):
-        pessoa = PessoaTask.buscar_por_id(pk)
-        serializer = PessoaSerializer(pessoa, data=request.data)
+        serializer = PessoaSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         dto = serializer.to_dto()
         updated = PessoaService.atualizar_pessoa(pk, dto)
