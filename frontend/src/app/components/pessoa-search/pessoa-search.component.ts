@@ -18,13 +18,17 @@ export class PessoaSearchComponent {
   @Output() selecionar = new EventEmitter<Pessoa>();
 
   searchQuery = new FormControl('');
+  searchError = '';
 
   onPesquisar(): void {
     const query = this.searchQuery.value?.trim();
-    if (query) {
-      this.pesquisar.emit(query);
-      this.searchQuery.reset();
+    if (!query) {
+      this.searchError = 'Informe um Nome ou CPF para pesquisar.';
+      return;
     }
+    this.searchError = '';
+    this.pesquisar.emit(query);
+    this.searchQuery.reset();
   }
 
   onSelecionar(pessoa: Pessoa): void {
