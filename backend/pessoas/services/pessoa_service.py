@@ -85,8 +85,8 @@ class PessoaService:
             'peso_ideal': pessoa.calcular_peso_ideal(),
         }
 
-    @staticmethod                                                                                                                                                                                      
-    def buscar_pessoa(pessoa_id: int) -> Pessoa:      
+    @staticmethod
+    def buscar_pessoa(pessoa_id: int) -> Pessoa:
         pessoa = PessoaTask.buscar_por_id(pessoa_id)
         if not pessoa:
             raise PessoaNaoEncontradaError(
