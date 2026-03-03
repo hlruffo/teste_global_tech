@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Pessoa } from '../../models/pessoa.model';
 import { ApiError } from '../../models/api-error.model';
+import { CpfMaskDirective } from '../../directives/cpf-mask.directive';
 
 @Component({
   selector: 'app-pessoa-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, CpfMaskDirective],
   templateUrl: './pessoa-form.component.html',
   styleUrls: ['./pessoa-form.component.css'],
 })
