@@ -164,7 +164,11 @@ Feminino:   peso_ideal = (62.1 × altura) − 44.7
 
 ```
 projeto/
+├── docker-compose.yml               # Orquestração dos containers
 ├── frontend/                        # Angular
+│   ├── Dockerfile                   # Imagem Node 20 + Angular CLI
+│   ├── .dockerignore
+│   ├── proxy.conf.docker.json       # Proxy /api → backend (Docker)
 │   └── src/app/
 │       ├── components/
 │       │   ├── pessoa-page/         # Orquestrador principal
@@ -180,6 +184,9 @@ projeto/
 │       └── app.config.ts            # Configuração DI
 │
 └── backend/                         # Django
+    ├── Dockerfile                   # Imagem Python 3.12 + migrations automáticas
+    ├── .dockerignore
+    ├── .env.docker                  # Variáveis de ambiente para Docker
     ├── core/
     │   ├── settings.py              # Configurações (DB, CORS, logging)
     │   └── urls.py                  # Rota raiz → /api/pessoas/
@@ -199,7 +206,47 @@ projeto/
 
 ## Como Executar
 
-### Backend
+### Com Docker (recomendado)
+
+Pré-requisitos: [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/) instalados.
+
+```bash
+docker compose up --build
+```
+
+Isso sobe os três serviços:
+
+| Serviço    | Imagem base          | Porta  |
+|------------|----------------------|--------|
+| `db`       | postgres:16-alpine   | 5432   |
+| `backend`  | python:3.12-slim     | 8000   |
+| `frontend` | node:20-alpine       | 4200   |
+
+- O banco PostgreSQL inicia com healthcheck — o backend só sobe após o banco estar pronto.
+- As migrations rodam automaticamente na inicialização do container backend.
+- O frontend usa um proxy (`proxy.conf.docker.json`) que encaminha `/api` para o container `backend:8000`.
+- Os diretórios `./backend` e `./frontend` são montados como volumes, permitindo hot-reload em desenvolvimento.
+
+Acesse: [http://localhost:4200](http://localhost:4200)
+Admin Django: [http://localhost:8000/admin](http://localhost:8000/admin)
+
+Para parar os serviços:
+
+```bash
+docker compose down
+```
+
+Para parar e remover os dados do banco:
+
+```bash
+docker compose down -v
+```
+
+---
+
+### Sem Docker (manual)
+
+#### Backend
 
 ```bash
 cd backend
@@ -211,7 +258,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-### Frontend
+#### Frontend
 
 ```bash
 cd frontend
