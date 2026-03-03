@@ -19,6 +19,7 @@ venv/
 
 # Environment variables (credentials)
 .env
+.env.docker
 
 # Django
 *.log
