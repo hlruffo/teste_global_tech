@@ -29,7 +29,7 @@
   <!-- CPF -->
   <div class="form-group">
     <label for="cpf">CPF *</label>
-    <input id="cpf" type="text" formControlName="cpf" placeholder="000.000.000-00" />
+    <input id="cpf" type="text" formControlName="cpf" placeholder="000.000.000-00" appCpfMask />
     <span class="field-error" *ngIf="form.get('cpf')?.errors?.['required'] && form.get('cpf')?.touched">
       CPF é obrigatório.
     </span>
