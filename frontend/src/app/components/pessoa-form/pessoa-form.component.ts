@@ -58,6 +58,7 @@ export class PessoaFormComponent implements OnChanges {
           peso: this.pessoaSelecionada.peso,
         });
         this.form.get('cpf')?.disable();
+        this.form.markAsPristine();
       } else {
         this.form.get('cpf')?.enable();
       }
@@ -82,6 +83,12 @@ export class PessoaFormComponent implements OnChanges {
 
   onCalcularPesoIdeal(): void {
     if (!this.pessoaSelecionada) return;
+
+    if (this.form.dirty) {
+      alert('Existem alterações não salvas. Clique em "Alterar" para salvar antes de calcular o peso ideal.');
+      return;
+    }
+
     this.calcularPesoIdeal.emit(this.pessoaSelecionada.id!);
   }
 
