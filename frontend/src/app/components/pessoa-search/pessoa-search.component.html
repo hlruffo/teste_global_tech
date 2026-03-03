@@ -7,6 +7,7 @@
   />
   <button (click)="onPesquisar()" [disabled]="isLoading">Pesquisar</button>
 </div>
+<span class="field-error" *ngIf="searchError">{{ searchError }}</span>
 
 <ul class="search-results" *ngIf="resultados.length > 1">
   <li

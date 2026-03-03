@@ -40,3 +40,11 @@
 }
 .result-item:hover { background: #eaf2ff; }
 .result-item:last-child { border-bottom: none; }
+
+.field-error {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: -12px;
+  display: block;
+  margin-bottom: 8px;
+}
