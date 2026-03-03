@@ -44,7 +44,8 @@ class PessoaDetailView(APIView):
         return Response(PessoaSerializer(pessoa).data)
 
     def put(self, request, pk):
-        serializer = PessoaSerializer(data=request.data)
+        pessoa = PessoaService.buscar_pessoa(pk)
+        serializer = PessoaSerializer(pessoa, data=request.data)
         serializer.is_valid(raise_exception=True)
         dto = serializer.to_dto()
         updated = PessoaService.atualizar_pessoa(pk, dto)
