@@ -22,4 +22,4 @@ class Pessoa(models.Model):
         if self.sexo == 'M':
             return round((72.7 * self.altura) - 58, 2)
 
-        round((62.1 * self.altura) - 44.7, 2)
+        return round((62.1 * self.altura) - 44.7, 2)
