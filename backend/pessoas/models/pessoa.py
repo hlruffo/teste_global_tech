@@ -21,5 +21,5 @@ class Pessoa(models.Model):
     def calcular_peso_ideal(self) -> float:
         if self.sexo == 'M':
             return round((72.7 * self.altura) - 58, 2)
-        
+
         round((62.1 * self.altura) - 44.7, 2)

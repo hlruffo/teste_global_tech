@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from datetime import date 
-from typing import Optional
+from datetime import date
 
 
 @dataclass
@@ -10,5 +9,5 @@ class PessoaDTO:
     cpf: str
     sexo: str
     altura: float
-    peso: float 
-    id: Optional[int] = None
+    peso: float
+    id: int | None = None
