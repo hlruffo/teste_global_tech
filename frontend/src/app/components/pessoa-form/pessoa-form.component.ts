@@ -46,15 +46,20 @@ export class PessoaFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['pessoaSelecionada'] && this.pessoaSelecionada) {
-      this.form.patchValue({
-        nome: this.pessoaSelecionada.nome,
-        data_nasc: this.pessoaSelecionada.data_nasc,
-        cpf: this.pessoaSelecionada.cpf,
-        sexo: this.pessoaSelecionada.sexo,
-        altura: this.pessoaSelecionada.altura,
-        peso: this.pessoaSelecionada.peso,
-      });
+    if (changes['pessoaSelecionada']) {
+      if (this.pessoaSelecionada) {
+        this.form.patchValue({
+          nome: this.pessoaSelecionada.nome,
+          data_nasc: this.pessoaSelecionada.data_nasc,
+          cpf: this.pessoaSelecionada.cpf,
+          sexo: this.pessoaSelecionada.sexo,
+          altura: this.pessoaSelecionada.altura,
+          peso: this.pessoaSelecionada.peso,
+        });
+        this.form.get('cpf')?.disable();
+      } else {
+        this.form.get('cpf')?.enable();
+      }
     }
   }
 
@@ -81,6 +86,7 @@ export class PessoaFormComponent implements OnChanges {
 
   resetForm(): void {
     this.form.reset({ sexo: 'M' });
+    this.form.get('cpf')?.enable();
   }
 
   aplicarErrosServidor(apiError: ApiError): void {
@@ -95,7 +101,7 @@ export class PessoaFormComponent implements OnChanges {
   }
 
   private buildPayload(): Pessoa {
-    const v = this.form.value;
+    const v = this.form.getRawValue();
     return {
       nome: v.nome,
       data_nasc: v.data_nasc,
