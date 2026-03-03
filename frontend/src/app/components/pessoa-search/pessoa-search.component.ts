@@ -23,6 +23,7 @@ export class PessoaSearchComponent {
     const query = this.searchQuery.value?.trim();
     if (query) {
       this.pesquisar.emit(query);
+      this.searchQuery.reset();
     }
   }
 
