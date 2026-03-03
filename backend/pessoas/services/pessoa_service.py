@@ -1,9 +1,9 @@
 import logging
-from typing import List
+
 from ..dtos import PessoaDTO
-from ..tasks import PessoaTask
+from ..exceptions import CPFDuplicadoError, PessoaNaoEncontradaError
 from ..models import Pessoa
-from ..exceptions import PessoaNaoEncontradaError, CPFDuplicadoError
+from ..tasks import PessoaTask
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +13,7 @@ class PessoaService:
     def criar_pessoa(dto: PessoaDTO) -> Pessoa:
         if PessoaTask.buscar_por_cpf(dto.cpf):
             raise CPFDuplicadoError(f"CPF '{dto.cpf}' já cadastrado")
-        
+
         pessoa = PessoaTask.criar(
             nome=dto.nome,
             data_nasc=dto.data_nasc,
@@ -24,8 +24,8 @@ class PessoaService:
         )
         logger.info("Pessoa criada: id= %d, nome=%s", pessoa.pk, pessoa.nome)
         return pessoa
-    
-    
+
+
     @staticmethod
     def atualizar_pessoa(pessoa_id: int, dto: PessoaDTO) -> Pessoa:
         pessoa = PessoaTask.buscar_por_id(pessoa_id)
@@ -51,7 +51,7 @@ class PessoaService:
         )
         logger.info("Pessoa atualizada: id=%d", pessoa.pk)
         return pessoa
-    
+
     @staticmethod
     def excluir_pessoa(pessoa_id: int) -> None:
         pessoa = PessoaTask.buscar_por_id(pessoa_id)
@@ -63,7 +63,7 @@ class PessoaService:
         logger.info("Pessoa excluída: id=%d", pessoa_id)
 
     @staticmethod
-    def pesquisar(query: str) -> List[Pessoa]:
+    def pesquisar(query: str) -> list[Pessoa]:
         by_cpf = PessoaTask.buscar_por_cpf(query)
         if by_cpf:
             return [by_cpf]
