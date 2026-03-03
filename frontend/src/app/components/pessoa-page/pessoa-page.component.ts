@@ -17,6 +17,7 @@ import { PesoIdealModalComponent } from '../peso-ideal-modal/peso-ideal-modal.co
 })
 export class PessoaPageComponent {
   @ViewChild(PessoaFormComponent) formComponent!: PessoaFormComponent;
+  @ViewChild(PessoaSearchComponent) searchComponent!: PessoaSearchComponent;
 
   pessoaSelecionada: Pessoa | null = null;
   resultadosBusca: Pessoa[] = [];
@@ -107,6 +108,8 @@ export class PessoaPageComponent {
         this.successMessage = 'Pessoa excluída com sucesso.';
         this.pessoaSelecionada = null;
         this.formComponent.resetForm();
+        this.searchComponent.searchQuery.setValue('');
+        this.resultadosBusca = [];
         this.isLoading = false;
       },
       error: (err: HttpErrorResponse) => {
