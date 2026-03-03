@@ -34,3 +34,5 @@ export class PessoaService {
         return this.http.get<PesoIdealResponse>(`${this.apiUrl}/${id}/peso-ideal/`);
     }
 }
+
+
